@@ -1,0 +1,14 @@
+PODS:
+  - Then (0.1.0)
+
+DEPENDENCIES:
+  - Then (from `../`)
+
+EXTERNAL SOURCES:
+  Then:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Then: 92b7a9453f86fa52d7d6b309aeaf1d4ef7b140ae
+
+COCOAPODS: 0.39.0

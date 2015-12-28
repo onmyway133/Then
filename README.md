@@ -1,4 +1,5 @@
 # Then
+Promise A+ in Swift
 
 [![CI Status](http://img.shields.io/travis/Khoa Pham/Then.svg?style=flat)](https://travis-ci.org/Khoa Pham/Then)
 [![Version](https://img.shields.io/cocoapods/v/Then.svg?style=flat)](http://cocoapods.org/pods/Then)
@@ -8,8 +9,6 @@
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
 
 ## Installation
 
