@@ -8,6 +8,10 @@
 
 import Foundation
 
-class Promise<T> {
-    
+class Promise<T>: Thenable {
+    var state: State = .Pending
+
+    func then() {
+        
+    }
 }
