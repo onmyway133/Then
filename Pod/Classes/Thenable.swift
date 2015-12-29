@@ -9,5 +9,7 @@
 import Foundation
 
 protocol Thenable {
-    func then()
+    typealias Value
+
+    func then(queue: dispatch_queue_t, completion: Result<Value> -> Result<Value>?) -> Self
 }

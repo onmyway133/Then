@@ -15,9 +15,9 @@
 		AB5E082B911C35D90F7A1C5D56CA5938 /* Pods-Then_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 286AADFDD48D1A8C6C055EF4827F41CD /* Pods-Then_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC6109046ACA20FEC19FBC166EB35AE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		B2FB35FCB0F6A8AE445E2E668B4C7B0D /* Pods-Then_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 974693A404F0A25F3FB5F10D8BA8AE54 /* Pods-Then_Tests-dummy.m */; };
+		D21D81881C326CBB0017A9D2 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D81871C326CBB0017A9D2 /* Callback.swift */; };
 		D2CD51231C3182D20012539D /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD51221C3182D20012539D /* Promise.swift */; };
 		D2CD512D1C31AA2D0012539D /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD512C1C31AA2D0012539D /* Thenable.swift */; };
-		D2CD512F1C31AA6B0012539D /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD512E1C31AA6B0012539D /* State.swift */; };
 		D2CD51311C31AAC50012539D /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD51301C31AAC50012539D /* Result.swift */; };
 		D576D1E2812D065B0D258451A13E4DCE /* Pods-Then_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B5993452095CEA5E42BF3AD965044792 /* Pods-Then_Example-dummy.m */; };
 		F0906101BBCF133BCCC5FC8F37C6889A /* Pods-Then_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F89CB90A9C1AEBBEF04161CAFB2B4B2 /* Pods-Then_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,9 +77,9 @@
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C09B5CEA0A6AA48714F37492235C96D1 /* Then.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Then.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC1D125AD97AA3A1A41D2EADE39515BB /* Pods_Then_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Then_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D21D81871C326CBB0017A9D2 /* Callback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
 		D2CD51221C3182D20012539D /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		D2CD512C1C31AA2D0012539D /* Thenable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thenable.swift; sourceTree = "<group>"; };
-		D2CD512E1C31AA6B0012539D /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		D2CD51301C31AAC50012539D /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D341DF3123ED8116C7F250DF064CE7DA /* Pods-Then_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Then_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB7BF27218F64C5F98AB77ACF61113C9 /* Then.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Then.xcconfig; sourceTree = "<group>"; };
@@ -198,8 +198,8 @@
 			children = (
 				D2CD51221C3182D20012539D /* Promise.swift */,
 				D2CD512C1C31AA2D0012539D /* Thenable.swift */,
-				D2CD512E1C31AA6B0012539D /* State.swift */,
 				D2CD51301C31AAC50012539D /* Result.swift */,
+				D21D81871C326CBB0017A9D2 /* Callback.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -421,7 +421,7 @@
 				D2CD51311C31AAC50012539D /* Result.swift in Sources */,
 				523026948AFB3419B4DA5A7D83682672 /* Then-dummy.m in Sources */,
 				D2CD51231C3182D20012539D /* Promise.swift in Sources */,
-				D2CD512F1C31AA6B0012539D /* State.swift in Sources */,
+				D21D81881C326CBB0017A9D2 /* Callback.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

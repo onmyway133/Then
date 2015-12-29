@@ -9,6 +9,15 @@
 import Foundation
 
 enum Result<T> {
-    case Value(T)
-    case Reason(ErrorType)
+    case Pending
+    case Fulfilled(value: T)
+    case Rejected(reason: ErrorType)
+
+    func isPending() -> Bool {
+        if case .Pending = self {
+            return true
+        } else {
+            return false
+        }
+    }
 }
