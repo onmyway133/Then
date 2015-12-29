@@ -15,7 +15,7 @@ public final class Promise<T>: Thenable {
     let lockQueue = dispatch_queue_create("lock_queue", DISPATCH_QUEUE_SERIAL)
     var callbacks = [Callback<T>]()
 
-    init() {
+    public init() {
         
     }
 
@@ -57,7 +57,7 @@ public final class Promise<T>: Thenable {
         }
     }
 
-    func reject(reason reason: ErrorType) {
+    public func reject(reason reason: ErrorType) {
         dispatch_sync(lockQueue) {
             guard self.result.isPending() else {
                 return
@@ -73,7 +73,7 @@ public final class Promise<T>: Thenable {
         }
     }
 
-    func fulfill(value value: T) {
+    public func fulfill(value value: T) {
         dispatch_sync(lockQueue) {
             guard self.result.isPending() else {
                 return
@@ -89,7 +89,10 @@ public final class Promise<T>: Thenable {
         }
     }
 
-    func forward(promise promise: Promise, anotherPromise: Promise) {
-
+    private func forward(promise promise: Promise, anotherPromise: Promise) {
+        anotherPromise.then { (result: Result<T>) -> Result<T>? in
+            // TODO
+            return nil
+        }
     }
 }
