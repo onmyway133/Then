@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class Promise<T>: Thenable {
+public final class Promise<T> {
     public typealias Value = T
 
     var result: Result<T> = .Pending
@@ -20,45 +20,18 @@ public final class Promise<T>: Thenable {
         self.result = result
     }
 
-    public func then(queue: dispatch_queue_t = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
-        completion: Result<T> -> Result<T>?) -> Promise {
+    public func then<U>(queue: dispatch_queue_t = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+        map: Result<T> -> Result<U>?) -> Promise<U> {
 
-            let promise = Promise()
-            let callback = Callback(promise: promise, completion: completion, queue:queue)
+            let promise = Promise<U>()
 
-            callbacks.append(callback)
-
-            if !result.isPending() {
-                notify(callback: callback, result: result)
+            register(queue: queue) { result in
+                promise.notify(result: map(result))
             }
+
+            notify(result: result)
 
             return promise
-    }
-
-    private func notify(callback callback: Callback<T>, result: Result<T>) {
-        dispatch_async(callback.queue) {
-            let transformedResult = callback.completion(self.result)
-            callback.promise.handle(result: transformedResult)
-        }
-    }
-
-    private func handle(result result: Result<T>?) {
-        guard let result = result else {
-            return
-        }
-
-        switch result {
-        case let .Rejected(reason):
-            reject(reason: reason)
-        case let .Fulfilled(value):
-            if let anotherPromise = value as? Promise {
-                forward(anotherPromise: anotherPromise)
-            } else {
-                fulfill(value: value)
-            }
-        default:
-            break
-        }
     }
 
     public func reject(reason reason: ErrorType) {
@@ -68,12 +41,7 @@ public final class Promise<T>: Thenable {
             }
 
             self.result = .Rejected(reason: reason)
-
-            self.callbacks.forEach { callback in
-                self.notify(callback: callback, result: self.result)
-            }
-
-            self.callbacks.removeAll()
+            self.notify(result: self.result)
         }
     }
 
@@ -84,33 +52,33 @@ public final class Promise<T>: Thenable {
             }
 
             self.result = .Fulfilled(value: value)
-
-            self.callbacks.forEach { callback in
-                self.notify(callback: callback, result: self.result)
-            }
-
-            self.callbacks.removeAll()
+            self.notify(result: self.result)
         }
     }
 
-    // TODO
-    private func forward(anotherPromise anotherPromise: Promise) {
-        anotherPromise.then { [unowned self] (result: Result<T>) -> Result<T>? in
-            switch result {
-            case let .Rejected(reason):
-                self.reject(reason: reason)
-            case let .Fulfilled(value):
-                self.fulfill(value: value)
-            default:
-                break
-            }
-
-            return nil
+    private func notify(result result: Result<T>?) {
+        guard let result = result where !result.isPending() else {
+            return
         }
+
+        self.result = result
+
+        callbacks.forEach { callback in
+            dispatch_async(callback.queue) {
+                callback.completion(result)
+            }
+        }
+
+        callbacks.removeAll()
     }
 
-    class func all(promises: [Promise]) -> Promise {
-        let final = Promise()
+    private func register(queue queue: dispatch_queue_t, completion: Result<T> -> Void) {
+        let callback = Callback(completion: completion, queue: queue)
+        callbacks.append(callback)
+    }
+
+    class func all(promises promises: [Promise]) -> Promise<[String: T]> {
+        let final = Promise<[String: T]>()
 
         let total = promises.count
         var count = 0
@@ -120,7 +88,6 @@ public final class Promise<T>: Thenable {
             promise.then { result in
                 dispatch_sync(final.lockQueue) {
                     if !final.result.isPending() {
-                        // TODO
                         return
                     }
 
@@ -129,20 +96,18 @@ public final class Promise<T>: Thenable {
                         final.reject(reason: reason)
                     case let .Fulfilled(value):
                         count++
-
                         values[promise.key] = value
 
                         if count == total {
-                            // TODO
-//                            final.fulfill(value: values)
+                            final.fulfill(value: values)
                         }
                     default:
                         break
                     }
                 }
-
+                
                 return nil
-            }
+            } as Promise<T>
         }
 
         return final

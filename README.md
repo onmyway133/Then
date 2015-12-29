@@ -15,6 +15,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - Use Result to associate states with values
 - Support protocol `Thenable`
 - Support queue
+- Transform Fulfilled value
 
 ### Then
 
@@ -30,7 +31,7 @@ promise.then { result in
     XCTAssert(condition)
 
     return nil
-}
+} as Promise<Any>
 
 promise.fulfill(value: 10)
 ```
@@ -38,29 +39,27 @@ promise.fulfill(value: 10)
 ### Chain
 
 ```swift
-let promise = Promise<Int>(result: .Fulfilled(value: 5))
+let promise = (Promise<String>(result: .Fulfilled(value: "then"))
     .then { result in
-        if case let .Fulfilled(value) = result {
-            return .Fulfilled(value: value * 3)
-        } else {
-            return result
+        return result.map { value in
+            return value.characters.count
         }
-    }.then { result in
-        if case let .Fulfilled(value) = result {
-            return .Fulfilled(value: value + 2)
-        } else {
-            return result
+    } as Promise<Int>)
+    .then { result in
+        return result.map { value in
+            return value * 2
         }
-    }
+    } as Promise<Int>
 
-promise.then { result  in
+promise.then { result in
     if case let .Fulfilled(value) = result {
-        XCTAssert(value == 17)
+        XCTAssert(value == 8)
     } else {
         XCTAssert(false)
     }
 
     return nil
+} as Promise<Any>
 }
 ```
 
@@ -69,14 +68,25 @@ promise.then { result  in
 ```swift
 let promise1 = Promise<Int>(result: .Fulfilled(value: 1))
 let promise2 = Promise<Int>(result: .Fulfilled(value: 2))
+let promise3 = Promise<Int>(result: .Fulfilled(value: 3))
 
-let all = Promise.all([promise1, promise2])
+let final = Promise.all(promises: [promise1, promise2, promise3])
 
-all.then { result in
-    // TODO
+final.then { result in
+    if case let .Fulfilled(value) = result {
+        XCTAssert(value.count == 3)
+
+        XCTAssert(value.values.contains(1))
+        XCTAssert(value.values.contains(2))
+        XCTAssert(value.values.contains(3))
+
+        XCTAssert(value.keys.contains(promise1.key))
+    } else {
+        XCTAssert(false)
+    }
 
     return nil
-}
+} as Promise<Any>
 ```
 
 ## Installation

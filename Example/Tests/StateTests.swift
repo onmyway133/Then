@@ -31,7 +31,7 @@ class StateTests: XCTestCase {
             XCTAssert(condition)
 
             return nil
-        }
+        } as Promise<Any>
 
         promise.fulfill(value: 10)
     }
@@ -53,7 +53,7 @@ class StateTests: XCTestCase {
             XCTAssert(condition)
 
             return nil
-        }
+        } as Promise<Any>
         
         promise.reject(reason: error)
     }

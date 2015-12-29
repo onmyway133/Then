@@ -9,7 +9,6 @@
 import Foundation
 
 struct Callback<T> {
-    let promise: Promise<T>
-    let completion: Result<T> -> Result<T>?
+    let completion: Result<T> -> Void
     let queue: dispatch_queue_t
 }

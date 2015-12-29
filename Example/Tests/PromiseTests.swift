@@ -21,15 +21,16 @@ class PromiseTests: XCTestCase {
         promise.then { _ in
             count++
             return nil
-        }
+        } as Promise<Any>
 
         promise.then { _ in
             count++
 
             expectation.fulfill()
             XCTAssert(count == 2)
+
             return nil
-        }
+        } as Promise<Any>
 
         waitForExpectationsWithTimeout(0.5, handler: nil)
     }
@@ -41,7 +42,7 @@ class PromiseTests: XCTestCase {
             XCTAssert(false)
 
             return nil
-        }
+        } as Promise<Any>
     }
 
     func testRejectedAfterFulfilled() {
@@ -51,7 +52,7 @@ class PromiseTests: XCTestCase {
             XCTAssert(true)
 
             return nil
-        }
+        } as Promise<Any>
 
         promise.reject(reason: NSError(domain: "", code: 0, userInfo: nil))
 
@@ -61,6 +62,6 @@ class PromiseTests: XCTestCase {
             }
 
             return nil
-        }
+        } as Promise<Any>
     }
 }
