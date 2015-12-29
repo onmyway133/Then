@@ -13,7 +13,7 @@ public enum Result<T> {
     case Fulfilled(value: T)
     case Rejected(reason: ErrorType)
 
-    func map<U>(f: T -> U) -> Result<U> {
+    public func map<U>(f: T -> U) -> Result<U> {
         switch self {
         case let .Fulfilled(value):
             return .Fulfilled(value: f(value))

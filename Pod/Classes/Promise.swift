@@ -77,7 +77,7 @@ public final class Promise<T> {
         callbacks.append(callback)
     }
 
-    class func all(promises promises: [Promise]) -> Promise<[String: T]> {
+    public class func all(promises promises: [Promise]) -> Promise<[String: T]> {
         let final = Promise<[String: T]>()
 
         let total = promises.count
