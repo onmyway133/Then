@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Result<T> {
+public enum Result<T> {
     case Pending
     case Fulfilled(value: T)
     case Rejected(reason: ErrorType)

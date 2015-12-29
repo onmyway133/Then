@@ -8,8 +8,8 @@
 
 import Foundation
 
-final class Promise<T>: Thenable {
-    typealias Value = T
+public final class Promise<T>: Thenable {
+    public typealias Value = T
     var result: Result<T> = .Pending
 
     let lockQueue = dispatch_queue_create("lock_queue", DISPATCH_QUEUE_SERIAL)
@@ -19,7 +19,7 @@ final class Promise<T>: Thenable {
         
     }
 
-    func then(queue: dispatch_queue_t = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+    public func then(queue: dispatch_queue_t = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
         completion: Result<T> -> Result<T>?) -> Promise {
 
             let promise = Promise()
@@ -31,14 +31,14 @@ final class Promise<T>: Thenable {
             return promise
     }
 
-    func notify(callback callback: Callback<T>, result: Result<T>) {
+    private func notify(callback callback: Callback<T>, result: Result<T>) {
         dispatch_async(callback.queue) {
             let r = callback.completion(self.result)
             self.handle(promise: callback.promise, result: r)
         }
     }
 
-    func handle(promise promise: Promise, result: Result<T>?) {
+    private func handle(promise promise: Promise, result: Result<T>?) {
         guard let result = result else {
             return
         }
