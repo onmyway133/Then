@@ -12,8 +12,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Features
 
-- Use Result to associated states with values
+- Use Result to associate states with values
 - Support protocol `Thenable`
+- Support queue
 
 ### Then
 
