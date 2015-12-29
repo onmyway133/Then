@@ -91,7 +91,15 @@ public final class Promise<T>: Thenable {
 
     private func forward(promise promise: Promise, anotherPromise: Promise) {
         anotherPromise.then { (result: Result<T>) -> Result<T>? in
-            // TODO
+            switch result {
+            case let .Rejected(reason):
+                promise.reject(reason: reason)
+            case let .Fulfilled(value):
+                promise.fulfill(value: value)
+            default:
+                break
+            }
+
             return nil
         }
     }

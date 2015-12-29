@@ -13,7 +13,32 @@ import XCTest
 
 class ChainTests: XCTestCase {
 
-    func test() {
+    func testMap() {
+        let promise1 = Promise<Int>()
+
+        let promise2 = promise1.then { result in
+            if case let .Fulfilled(value) = result {
+                XCTAssert(value == 5)
+                return .Fulfilled(value: value + 10)
+            } else {
+                return result
+            }
+        }
+
+        promise2.then { result in
+            if case let .Fulfilled(value) = result {
+                XCTAssert(value == 15)
+            } else {
+                XCTAssert(false)
+            }
+
+            return nil
+        }
+
+        promise1.fulfill(value: 5)
+    }
+
+    func testFlatMap() {
         
     }
 }
