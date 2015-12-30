@@ -1,10 +1,10 @@
 # Then
-[Promise A+](https://promisesaplus.com/) in Swift
+<a href="https://promisesaplus.com/">
+    <img src="https://promisesaplus.com/assets/logo-small.png" alt="Promises/A+ logo"
+         title="Promises/A+ 1.0 compliant" align="top" />
+</a>
 
-[![CI Status](http://img.shields.io/travis/Khoa Pham/Then.svg?style=flat)](https://travis-ci.org/Khoa Pham/Then)
-[![Version](https://img.shields.io/cocoapods/v/Then.svg?style=flat)](http://cocoapods.org/pods/Then)
-[![License](https://img.shields.io/cocoapods/l/Then.svg?style=flat)](http://cocoapods.org/pods/Then)
-[![Platform](https://img.shields.io/cocoapods/p/Then.svg?style=flat)](http://cocoapods.org/pods/Then)
+[Promise A+](https://promisesaplus.com/) in Swift
 
 ## Usage
 
