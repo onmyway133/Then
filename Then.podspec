@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name             = "Then"
+  s.name             = "ThenIPromise"
   s.version          = "0.1.0"
   s.summary          = "Promise A+ in Swift"
 
